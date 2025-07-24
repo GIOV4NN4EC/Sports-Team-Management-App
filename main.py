@@ -7,7 +7,7 @@ def manage_players():
         print("2. Listar Jogadores")
         print("3. Editar Jogador")
         print("4. Remover Jogador")
-        print("5. Voltar")
+        print("5. Voltar ao Menu Principal")
         opcao = input("Escolha: ")
 
         if opcao == "1":
@@ -25,12 +25,12 @@ def manage_players():
 
 def manage_matches():
     while True:
-        print("\n--- PARTIDAS E TREINOS ---")
+        print("\nPARTIDAS E TREINOS")
         print("1. Agendar Partida")
         print("2. Listar Partidas")
         print("3. Agendar Treino")
         print("4. Listar Treinos")
-        print("5. Voltar")
+        print("5. Voltar ao Menu Principal")
         opcao = input("Escolha: ")
 
         if opcao == "1":
@@ -48,13 +48,13 @@ def manage_matches():
 
 def manage_equipment():
     while True:
-        print("\n--- EQUIPMENT MANAGEMENT ---")
-        print("1. Add Equipment")
-        print("2. List Equipment")
-        print("3. Edit Equipment")
-        print("4. Remove Equipment")
-        print("5. Back")
-        option = input("Choose: ")
+        print("\nGERENCIAMENTO DE EQUIPAMENTOS")
+        print("1. Adicionar Equipamento")
+        print("2. Listar Equipamentos")
+        print("3. Editar Equipamentos")
+        print("4. Remover Equipamento")
+        print("5. Voltar ao Menu Principal")
+        option = input("Escolha uma opção: ")
 
         if option == "1":
             sbf.add_equipment()
@@ -67,18 +67,18 @@ def manage_equipment():
         elif option == "5":
             break
         else:
-            print("Invalid option.")
+            print("Opção inválida.")
 
 
 def manage_finances():
     while True:
-        print("\n--- FINANCIAL MANAGEMENT ---")
-        print("1. Register Income")
-        print("2. Register Expense")
-        print("3. List Transactions")
-        print("4. Generate Report")
-        print("5. Back")
-        option = input("Choose: ")
+        print("\nGERENCIAR FINANÇAS")
+        print("1. Registrar Receita")
+        print("2. Registrar Despesa")
+        print("3. Listar Transações")
+        print("4. Gerar Relatório Financeiro")
+        print("5. Voltar ao Menu Principal")
+        option = input("Escolha uma opção: ")
 
         if option == "1":
             sbf.register_income()
@@ -91,17 +91,17 @@ def manage_finances():
         elif option == "5":
             break
         else:
-            print("Invalid option.")
+            print("Opção inválida.")
 
 def media_and_social():
     while True:
         print("\nMEDIA AND SOCIAL")
-        print("1. Create Post")
-        print("2. List Posts")
-        print("3. Create Poll")
-        print("4. List Polls")
-        print("5. Back")
-        option = input("Choose: ")
+        print("1. Criar Post")
+        print("2. Listar Posts")
+        print("3. Criar Enquete")
+        print("4. Listar Enquetes")
+        print("5. Voltar ao Menu Principal")
+        option = input("Escolha uma opção: ")
 
         if option == "1":
             sbf.create_post()
@@ -114,7 +114,7 @@ def media_and_social():
         elif option == "5":
             break
         else:
-            print("Invalid option.")
+            print("Opção inválida.")
 
 
 
