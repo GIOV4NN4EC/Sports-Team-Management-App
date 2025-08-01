@@ -8,6 +8,7 @@ injuried_players = [] #lista de jogadores lesionados
 posts = []
 polls = []
 
+#------------CLASSES----------------
 class Poll:
     poll_id_counter = 0
     def __init__(self, title, description, opt1, opt2, opt3):
@@ -96,60 +97,62 @@ class Training:
         self.time = time
         self.location = location #local da partida
         self.focus = focus #objetivo do treino (se houiver)
+#------------FIM CLASSES----------------
 
+#------------JOGADORES----------------
 def add_player():
-    name = input("Nome: ")
-    age = input("Idade: ")
-    position = input("Posição: ")
+    name = input("NAME: ")
+    age = input("AGE: ")
+    position = input("POSITION: ")
     
-    print("\nInforme as estatísticas do jogador:")
+    print("\nPLAYER STATS:")
     try:
-        score = int(input("Gols marcados: "))
-        games_played = int(input("Jogos disputados: "))
+        score = int(input("GOALS SCORED: "))
+        games_played = int(input("GAMES PLAYED: "))
     except ValueError:
-        print("Valor inválido para estatísticas. Use números inteiros.")
+        print("INVALID VALUES. USE INTEGERS")
         return
     
     stats = Stats(score, games_played)
-    health = input("Estado de saúde atual do jogador: ")
+    health = input("PLAYER HEALTH STATUS: ")
 
     new_player = Player(Player.id_inicial, name, age, position, stats, health)
     players.append(new_player)
-    print("Jogador adicionado com sucesso!")
+    print("PLAYER REGISTERED SUCCESSFULLY!")
 
 def list_players():
     if not players:
-        print("Nenhum jogador cadastrado no sistema.")
+        print("NO PLAYERS REGISTERED IN THE SYSTEM.")
         return
     
-    print("\nLista de Jogadores:")
+    print("\nPLAYERS LIST:")
     for player in players:
-        print(f"ID: {player.id} | Nome: {player.name} | Idade: {player.age} | Posição: {player.position} | Estado de Saúde: {player.health}")
-        print("-" * 30)
+        print(f"ID: {player.id} | NAME: {player.name} | AGE: {player.age} | POSITION: {player.position} | HEALTH STATUS: {player.health}")
+        print("-" * 90)
 
 def edit_player():
     try:
-        search_id = int(input("Digite o ID do jogador a ser editado: "))
+        search_id = int(input("ENTER PLAYER ID TO EDIT: "))
     except ValueError:
-        print("ID inválido.")
+        print("INVALID ID.")
         return
     
     for player in players:
         if player.id == search_id:
-            print(f"\nEditando jogador {player.name} (ID {player.id})")
+            print(f"\nEDITING PLAYER {player.name} (ID {player.id})")
 
-            new_name = input(f"Novo nome (ou Enter para manter '{player.name}'): ")
-            new_position = input(f"Nova posição (ou Enter para manter '{player.position}'): ")
+            new_name = input(f"NEW NAME (OR ENTER TO KEEP '{player.name}'): ")
+            new_position = input(f"NEW POSITION (OR ENTER TO KEEP '{player.position}'): ")
 
             if new_name.strip():
                 player.name = new_name
             if new_position.strip():
                 player.position = new_position
             
-            print("\nEditar estatísticas:")
+            print("\nEDIT STATS:")
             try:
-                new_score = input(f"Gols (atual: {player.stats.score}): ")
-                new_games = input(f"Jogos (atual: {player.stats.games_played}): ")
+                new_score = input(f"GOALS (CURRENT: {player.stats.score}): ")
+                new_games = input(f"GAMES (CURRENT: {player.stats.games_played}): ")
                 
                 if new_score.strip():
                     player.stats.score = new_score
@@ -157,144 +160,215 @@ def edit_player():
                     player.stats.games_played = new_games
                     
             except ValueError:
-                print("Valor inválido para estatísticas. Use números inteiros.")
+                print("INVALID VALUE FOR STATS. USE INTEGER NUMBERS.")
 
-            print("Jogador atualizado com sucesso!")
+            print("PLAYER UPDATED SUCCESSFULLY!")
             return
-    print("Jogador não encontrado!")
+    print("PLAYER NOT FOUND!")
         
 def remove_player():
     try:
-        search_id = int(input("Digite o ID do jogador a ser editado: "))
+        search_id = int(input("ENTER PLAYER ID TO REMOVE: "))
     except ValueError:
-        print("ID inválido.")
+        print("INVALID ID.")
         return
     
     for player in players:
         if player.id == search_id:
             players.remove(player)
-            print("Jogador removido com sucesso!")
+            print("PLAYER REMOVED SUCCESSFULLY!")
             return
-    print("Jogador não encontrado!")
+    print("PLAYER NOT FOUND!")
 
+#-----------FIM JOGADORES---------------------------
+
+#-----------EVENTOS---------------------------
 def schedule_match():
-    date = input("Digite a data da partida: ")
-    time = input("Digite o horário da partida")
-    opponent = input("Digite o nome do oponente: ")
-    location = input("Local da partida: ")
+    date = input("ENTER MATCH DATE: ")
+    time = input("ENTER MATCH TIME: ")
+    opponent = input("ENTER OPPONENT NAME: ")
+    location = input("ENTER MATCH LOCATION: ")
     new_match = Match(date, time, opponent, location)
     matches.append(new_match)
 
 def schedule_training():
-    date = input("Data da do treino (ex: 18/08/2025): ")
-    time = input("Digite o horário do treino: ")
-    location = input("Local do treino: ")
-    focus = input("Digite o objetivo do treino: ")
+    date = input("ENTER TRAINING DATE (EX: 18/08/2025): ")
+    time = input("ENTER TRAINING TIME: ")
+    location = input("ENTER TRAINING LOCATION: ")
+    focus = input("ENTER TRAINING OBJECTIVE: ")
     new_training = Training(date, time, location, focus)
     trainings.append(new_training)
 
 def delete_match():
     if not matches:
-        print("Não há partidas cadastradas.")
-        print("Partida não encontrada!")
+        print("NO MATCHES REGISTERED.")
+        print("MATCH NOT FOUND!")
             
     list_matches()
     try:
-        id_remove = int(input("\nDigite o ID da partida a ser removida: "))
+        id_remove = int(input("\nENTER MATCH ID TO REMOVE: "))
     except ValueError:
-        print("ID inválido.")
+        print("INVALID ID.")
         return
 
     for match in matches:
         if match.id == id_remove:
             matches.remove(match)
-            print("Partida removida com sucesso!")
+            print("MATCH REMOVED SUCCESSFULLY!")
             return
         
 def delete_training():
     if not trainings:
-        print("Não há treinos cadastrados.")
+        print("NO TRAININGS REGISTERED.")
         return
         
     list_trainings()
     try:
-        id_remove = int(input("\nDigite o ID do treino a ser removido: "))
+        id_remove = int(input("\nENTER TRAINING ID TO REMOVE: "))
     except ValueError:
-        print("ID inválido.")
+        print("INVALID ID.")
         return
 
     for training in trainings:
         if training.id == id_remove:
             trainings.remove(training)
-            print("Treino removido com sucesso!")
+            print("TRAINING REMOVED SUCCESSFULLY!")
             return
-    print("Treino não encontrado!")
+    print("TRAINING NOT FOUND!")
 
 def delete_event():
-    print("\nREMOVER EVENTO")
-    print("1. Remover Partida")
-    print("2. Remover Treino")
-    option = input("Escolha (ou Enter para voltar): ")
+    print("\nREMOVE EVENT")
+    print("1. REMOVE MATCH")
+    print("2. REMOVE TRAINING")
+    print("0. BACK")
+    option = input("CHOOSE: ")
 
     if option == "1":
         delete_match()        
-
     elif option == "2":
         delete_training()
+    elif option == "0":
+        return
+    else:
+        print("INVALID OPTION!")
 
 def list_matches():
     if not matches:
-        print("Nenhum evento cadastrado no sistema.")
+        print("NO MATCHES REGISTERED.")
         return
     
-    print("\nLista de Partidas:")
+    print("\nMATCHES LIST:")
     for match in matches:
-        print(f"ID: {match.id} | Oponente: {match.opponent} | Data: {match.date} | Hora: {match.time} |Local: {match.location} | Resultado: {match.result or 'Ainda não definido!'}")
-        print("-" * 30)
+        print(f"ID: {match.id} | OPPONENT: {match.opponent} | DATE: {match.date} | TIME: {match.time} | LOCATION: {match.location} | RESULT: {match.result or 'NOT DEFINED YET!'}")
+        print("-" * 90)
 
 def list_trainings():
     if not trainings:
-        print("Nenhum evento cadastrado no sistema.")
+        print("NO TRAININGS REGISTERED.")
         return
     
-    print("\nLista de Treinos:")
+    print("\nTRAININGS LIST:")
     for training in trainings:
-        print(f"ID: {training.id} | Data: {training.date} | Hora: {training.time} |Local: {training.location} | Objetivo: {training.focus}")
-        print("-" * 30)
+        print(f"ID: {training.id} | DATE: {training.date} | TIME: {training.time} | LOCATION: {training.location} | OBJECTIVE: {training.focus}")
+        print("-" * 90)
 
 def register_result():
     if not matches:
-        print("Nenhuma partida cadastrada.")
+        print("NO MATCHES REGISTERED.")
         return
 
     try:
-        match_id = int(input("Digite o ID da partida para registrar o resultado: "))
+        match_id = int(input("ENTER MATCH ID TO REGISTER RESULT: "))
     except ValueError:
-        print("ID inválido.")
+        print("INVALID ID.")
         return
 
     for match in matches:
         if match.id == match_id:
-            result = input("Digite o resultado da partida (ex: Vitória 2x1, Derrota 0x3): ")
+            result = input("ENTER MATCH RESULT (EX: WIN 2x1, LOSS 0x3): ")
             if result:
                 match.result = result
-                print("Resultado registrado com sucesso.")
+                print("RESULT REGISTERED SUCCESSFULLY.")
             else:
-                print("Nenhuma alteração feita.")
+                print("NO CHANGES MADE.")
             return
-    print("Partida não encontrada.")
+    print("MATCH NOT FOUND.")
+#-----------FIM EVENTOS---------------------------
 
+#-----------PERFORMANCE E SAÚDE---------------------------
+def performance_tracking():
+    if not players:
+        print("NO PLAYERS REGISTERED.")
+        return
 
-def team_management():
+    print("\nPLAYERS PERFORMANCE REPORT:")
+    for player in players:
+        aproveitamento = float(player.stats.score/player.stats.games_played)
+        print(f"ID: {player.id} | NAME: {player.name} | GOALS PER GAME AVERAGE: {aproveitamento:.2f} |")
+        print("-" * 90)
+
+def check_health():
+    health_id = input("ENTER PLAYER ID TO CHECK HEALTH STATUS: ")
+
+    for player in players:
+        if player.id == health_id:
+            print(f"PLAYER {player.name} IS {player.health}")
+
+def update_health():
+    health_id = input("ENTER PLAYER ID TO UPDATE HEALTH STATUS: ")
+
+    for player in players:
+        if player.id == health_id:
+            print(f"\nEDITING PLAYER {player.name} (ID {player.id})")
+
+            new_health_status = input(f"NEW HEALTH STATUS (OR ENTER TO KEEP '{player.health}'): ")
+    if player.health.strip():
+        player.heatlh = new_health_status
+
+def list_injuried_players():
+    print("\n| INJURIED PLAYERS LIST |")
+    print("-"*30)
+    for player in injuried_players:
+        print(f"{player.name}")
+        print("-"*30)
+#-----------FIM PERFORMANCE E SAÚDE---------------------------
+
+def manage_player_recruitment():
+    print("\nRECRUITS MANAGEMENT")
     while True:
-        print("\nMENU DE GERENCIAMENTO DE JOGADORES")
-        print("1. Adicionar Jogador")
-        print("2. Listar Jogadores")
-        print("3. Editar Jogador")
-        print("4. Remover Jogador")
-        print("5. Gerenciar Recrutas")
-        print("6. Voltar")
-        option = input("Escolha: ")
+        print("1. ADD RECRUIT")
+        print("2. LIST RECRUITS")
+        print("0. BACK")
+        escolha = input("CHOOSE: ")
+
+        if escolha == "1":
+            name = input("NAME: ")
+            age = input("AGE: ")
+            pros = input("STRENGTHS: ")
+            cons = input("WEAKNESSES: ")
+            position = input("POSITION: ")
+            observation = input("OBSERVATION: ")
+            recruit = Recruit(name, age, pros, cons, position, observation)
+            recruits.append(recruit)
+        elif escolha == "2":
+            for recruit in recruits:
+                print(f"NAME: {recruit.name} | AGE: {recruit.age} | POSITION: {recruit.position} | STRENGTHS: {recruit.pros} | WEAKNESSES: {recruit.cons} | OBS: {recruit.observation}")
+                print("-"*90)
+        elif escolha == "0":
+            break
+        else:
+            print("INVALID OPTION!")
+
+def manage_players():
+    while True:
+        print("\nPLAYERS MANAGEMENT MENU")
+        print("1. ADD PLAYER")
+        print("2. LIST PLAYERS")
+        print("3. EDIT PLAYER")
+        print("4. REMOVE PLAYER")
+        print("5. MANAGE RECRUITS")
+        print("0. BACK")
+        option = input("CHOOSE: ")
 
         if option == "1":
             add_player()
@@ -306,22 +380,44 @@ def team_management():
             remove_player()
         elif option == "5":
            manage_player_recruitment()
-        elif option == "6":
+        elif option == "0":
             break
         else:
-            print("Opção inválida.")
+            print("INVALID OPTION.")
+
+def team_management():
+    while True:
+        print("\nTEAM MANAGEMENT MENU")
+        print("1. MANAGE PLAYERS")
+        print("2. PERFORMANCE TRACKING")
+        print("3. HEALTH MONITORING")
+        print("4. MANAGE RECRUITS")
+        print("0. BACK")
+        option = input("CHOOSE: ")
+        if option == "1":
+            manage_players()
+        elif option == "2":
+            performance_tracking()
+        elif option == "3":
+            health_monitoring()
+        elif option == "4":
+            manage_player_recruitment()
+        elif option == "0":
+            break
+        else:
+            print("INVALID OPTION.")
 
 def schedule_event():
     while True:
-        print("\nMENU DE GERENCIAMENTO DE EVENTOS")
-        print("1. Agendar Partida")
-        print("2. Agendar Treino")
-        print("3. Listar Partidas")
-        print("4. Listar Treinos")
-        print("5. Remover Partidas/Treinos")
-        print("6. Adicionar resultado à partida")
-        print("7. Voltar")
-        option = input("Escolha: ")
+        print("\nEVENTS MANAGEMENT MENU")
+        print("1. SCHEDULE MATCH")
+        print("2. SCHEDULE TRAINING")
+        print("3. LIST MATCHES")
+        print("4. LIST TRAININGS")
+        print("5. REMOVE MATCHES/TRAININGS")
+        print("6. ADD MATCH RESULT")
+        print("0. BACK")
+        option = input("CHOOSE: ")
 
         if option == "1":
             schedule_match()
@@ -335,151 +431,162 @@ def schedule_event():
            delete_event()
         elif option == "6":
             register_result()
+        elif option == "0":
+            break
         else:
-            print("Opção inválida.")
+            print("INVALID OPTION.")
 
 def performance_tracking():
     if not players:
-        print("Nenhum jogador cadastrado.")
+        print("NO PLAYERS REGISTERED.")
         return
 
-    print("\nRelatório de Performance dos Jogadores:")
+    print("\nPLAYERS PERFORMANCE REPORT:")
     for player in players:
-        print(f"ID: {player.id} | Nome: {player.name} | Jogos: {player.stats.games_played} | Gols: {player.stats.score} |")
-        print("-" * 30)
+        aproveitamento = float(player.stats.score/player.stats.games_played)
+        print(f"ID: {player.id} | NAME: {player.name} | GOALS PER GAME AVERAGE: {aproveitamento:.2f} |")
+        print("-" * 90)
+
+def check_health():
+    health_id = input("ENTER PLAYER ID TO CHECK HEALTH STATUS: ")
+
+    for player in players:
+        if player.id == health_id:
+            print(f"PLAYER {player.name} IS {player.health}")
+
+def update_health():
+    health_id = input("ENTER PLAYER ID TO UPDATE HEALTH STATUS: ")
+
+    for player in players:
+        if player.id == health_id:
+            print(f"\nEDITING PLAYER {player.name} (ID {player.id})")
+
+            new_health_status = input(f"NEW HEALTH STATUS (OR ENTER TO KEEP '{player.health}'): ")
+    if player.health.strip():
+        player.heatlh = new_health_status
+
+def list_injuried_players():
+    print("\n| INJURIED PLAYERS LIST |")
+    print("-"*30)
+    for player in injuried_players:
+        print(f"{player.name}")
+        print("-"*30)
 
 def health_monitoring():
-    if not players:
-        print("Nenhum jogador cadastrado.")
-        return
+    while True:
+        print("\nHEALTH MONITORING")
+        print("1. CHECK HEALTH STATUS")
+        print("2. UPDATE HEALTH STATUS")
+        print("3. LIST INJURIED PLAYERS")
+        print("0. BACK TO MAIN MENU")
 
-    print("\nEstado de Saúde dos Jogadores:")
-    for player in players:
-        print(f"ID: {player.id} | Nome: {player.name} | Saúde: {player.health}")
-        if player.health.lower() != "apto":
-            injuried_players.append(player)
-        print("-" * 30)
+        option = input("CHOOSE AN OPTION: ").strip()
+
+        if option == "1":
+            check_health()
+        elif option == "2":
+            update_health()
+        elif option == "3":
+            list_injuried_players()
+        elif option == "0":
+            break
+        else:
+            print("INVALID OPTION.")
 
 def manage_equipments():
-    print("\nGERENCIAMENTO DE EQUIPAMENTOS")
+    print("\nEQUIPMENT MANAGEMENT")
     while True:
-        print("1. Adicionar Equipamento")
-        print("2. Listar Equipamentos")
-        print("3. Voltar")
-        escolha = input("Escolha: ")
+        print("1. ADD EQUIPMENT")
+        print("2. LIST EQUIPMENTS")
+        print("0. BACK")
+        escolha = input("CHOOSE: ")
 
         if escolha == "1":
-            name = input("Nome: ")
-            type = input("Tipo: ")
-            quantity = input("Quantidade: ")
-            status = input("Status: ")
-            observation = input("Observações: ")
+            name = input("NAME: ")
+            type = input("TYPE: ")
+            quantity = input("QUANTITY: ")
+            status = input("STATUS: ")
+            observation = input("OBSERVATIONS: ")
             new_equipment = Equipment(name, type, quantity, status, observation)
             equipments.append(new_equipment)
         elif escolha == "2":
             for equipment in equipments:
-                print(f"Nome: {equipment.name} | Tipo: {equipment.type} | Quantidade: {equipment.quantity} | Status: {equipment.status} | Observação: {equipment.observation}")
-        elif escolha == "3":
+                print(f"NAME: {equipment.name} | TYPE: {equipment.type} | QUANTITY: {equipment.quantity} | STATUS: {equipment.status} | OBSERVATION: {equipment.observation}")
+                print("-"*90)
+        elif escolha == "0":
             break
         else:
-            print("Opção inválida!")
-
-def manage_player_recruitment():
-    print("\nGERENCIAMENTO DE RECRUTAS")
-    while True:
-        print("1. Adicionar Recruta")
-        print("2. Listar Recrutas")
-        print("3. Voltar")
-        escolha = input("Escolha: ")
-
-        if escolha == "1":
-            name = input("Nome: ")
-            age = input("Idade: ")
-            pros = input("Pontos fortes: ")
-            cons = input("Pontos fracos: ")
-            position = input("Posição: ")
-            observation = input("Observação: ")
-            recruit = Recruit(name, age, pros, cons, position, observation)
-            recruits.append(recruit)
-        elif escolha == "2":
-            for recruit in recruits:
-                print(f"Nome: {recruit.name} | Idade: {recruit.age} | Posição: {recruit.position} | Prós: {recruit.pros} | Contras: {recruit.cons} | Obs: {recruit.observation}")
-        elif escolha == "3":
-            break
-        else:
-            print("Opção inválida!")
+            print("INVALID OPTION!")
 
 def manage_finances():
-    print("\nGERENCIAMENTO FINANCEIRO")
+    print("\nFINANCIAL MANAGEMENT")
     while True:
-        print(f"Saldo atual: R$ {account.balance:.2f}")
-        print("1. Registrar Receita")
-        print("2. Registrar Despesa")
-        print("3. Voltar")
-        option = input("Escolha: ")
+        print(f"CURRENT BALANCE: $ {account.balance:.2f}")
+        print("1. REGISTER INCOME")
+        print("2. REGISTER EXPENSE")
+        print("0. BACK")
+        option = input("CHOOSE: ")
 
         if option == "1":
-            value = float(input("Valor da receita: "))
+            value = float(input("INCOME VALUE: "))
             account.balance += value
         elif option == "2":
-            value = float(input("Valor da despesa: "))
+            value = float(input("EXPENSE VALUE: "))
             account.balance -= value
-        elif option == "3":
+        elif option == "0":
             break
         else:
-            print("Opção inválida!")
+            print("INVALID OPTION!")
 
 account = Account(0.0)
 
 def media_and_social():
-    print("\nMÍDIA E RELAÇÕES PÚBLICAS")
+    print("\nMEDIA AND PUBLIC RELATIONS")
     while True:
-        print("1. Criar Enquete")
-        print("2. Criar Postagem")
-        print("3. Listar Enquetes")
-        print("4. Listar Postagens")
-        print("5. Voltar")
-        option = input("Escolha: ")
+        print("1. CREATE POLL")
+        print("2. CREATE POST")
+        print("3. LIST POLLS")
+        print("4. LIST POSTS")
+        print("0. BACK")
+        option = input("CHOOSE: ")
 
         if option == "1":
-            title = input("Título da enquete: ")
-            desc = input("Descrição: ")
-            opt1 = input("Opção 1: ")
-            opt2 = input("Opção 2: ")
-            opt3 = input("Opção 3: ")
+            title = input("POLL TITLE: ")
+            desc = input("DESCRIPTION: ")
+            opt1 = input("OPTION 1: ")
+            opt2 = input("OPTION 2: ")
+            opt3 = input("OPTION 3: ")
             polls.append(Poll(title, desc, opt1, opt2, opt3))
         elif option == "2":
-            title = input("Título do post: ")
-            content = input("Conteúdo: ")
-            date = input("Data: ")
+            title = input("POST TITLE: ")
+            content = input("CONTENT: ")
+            date = input("DATE: ")
             posts.append(Post(title, content, date))
         elif option == "3":
             for p in polls:
-                print("-"*30)
-                print(f"Enquete: {p.title} | {p.description} \n[1] {p.opt1} [2] {p.opt2} [3] {p.opt3}")
-                print("-"*30)
+                print("-"*90)
+                print(f"POLL: {p.title} | {p.description} \n[1] {p.opt1} [2] {p.opt2} [3] {p.opt3}")
+                print("-"*90)
         elif option == "4":
             for post in posts:
-                print("-"*30)
-                print(f"Post: {post.title} | {post.date}\n{post.content}\n")
-                print("-"*30)
-        elif option == "5":
+                print("-"*90)
+                print(f"POST: {post.title} | {post.date}\n{post.content}\n")
+                print("-"*90)
+        elif option == "0":
             break
         else:
-            print("Opção inválida!")
-    
+            print("INVALID OPTION!")
 
 def main():
     while True:
         print("\n===== SPORTS TEAM MANAGEMENT APP =====")
-        print(" Selecione a opção desejada:")
-        print("1. Gerenciar Equipe e Jogadores")
-        print("2. Gerenciar Partidas e Treinos")
-        print("3. Acompanhamento de Performance")
-        print("4. Gerenciar Equipamentos")
-        print("5. Gerenciar Finanças")
-        print("6. Mídia e Social")
-        print("Digite q para sair.")
+        print(" SELECT DESIRED OPTION:")
+        print("1. MANAGE TEAM AND PLAYERS")
+        print("2. MANAGE MATCHES AND TRAININGS")
+        print("3. MANAGE EQUIPMENT")
+        print("4. MANAGE FINANCES")
+        print("5. MEDIA AND SOCIAL")
+        print("0. EXIT")
 
         option = input("")
 
@@ -495,11 +602,11 @@ def main():
             manage_finances()
         elif option == "6":
             media_and_social()
-        elif option == "q":
-            print("Encerrando o sistema.")
+        elif option == "0":
+            print("CLOSING SYSTEM.")
             break
         else:
-            print("Opção inválida!")
+            print("INVALID OPTION!")
 
 if __name__ == "__main__":
     main()
