@@ -140,20 +140,24 @@ def edit_player():
 
             new_name = input(f"Novo nome (ou Enter para manter '{player.name}'): ")
             new_position = input(f"Nova posição (ou Enter para manter '{player.position}'): ")
+
+            if new_name.strip():
+                player.name = new_name
+            if new_position.strip():
+                player.position = new_position
             
             print("\nEditar estatísticas:")
             try:
                 new_score = input(f"Gols (atual: {player.stats.score}): ")
                 new_games = input(f"Jogos (atual: {player.stats.games_played}): ")
                 
-                player.stats.score = int(new_score)
-                player.stats.games_played = int(new_games)
+                if new_score.strip():
+                    player.stats.score = new_score
+                if new_games.strip():
+                    player.stats.games_played = new_games
+                    
             except ValueError:
                 print("Valor inválido para estatísticas. Use números inteiros.")
-
-        
-            player.name = new_name
-            player.position = new_position
 
             print("Jogador atualizado com sucesso!")
             return
