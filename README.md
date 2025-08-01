@@ -18,7 +18,7 @@ Structured project implemantation of a Sports Team Management system for the Sof
 4. Injury and Health Management:
    - Health attribute on the class player
    - List of injuried players
-   - `health_monitoring()` (not implemented yet)
+   - `health_monitoring()`
 5. Training Schedule Management:
    - Class Training
    - `schedule_training()`, `list_trainings()`, `delete_training()`
@@ -40,4 +40,4 @@ Structured project implemantation of a Sports Team Management system for the Sof
 10. Media and Public Relations:
     - Class Post
     - `create_post()`, `list_posts()`
-    - Each post has a title and  text content
+    - Each post has a title and text content
