@@ -1,14 +1,11 @@
-team = [] #Lista com os jogadores titulares
 players = [] #lista de jogadores
 recruits = [] #lista de recrutas
 matches = [] #lista de eventos (partidas ou treinos)
 trainings =[] #lista de treinos
 equipments = [] #lista de equipamentos
-injuried_players = [] #lista de jogadores lesionados
-posts = []
-polls = []
+posts = [] #lista de posts criados
+polls = [] #lista de enquetes criadas
 
-#------------CLASSES----------------
 class Poll:
     poll_id_counter = 0
     def __init__(self, title, description, opt1, opt2, opt3):
@@ -97,9 +94,8 @@ class Training:
         self.time = time
         self.location = location #local da partida
         self.focus = focus #objetivo do treino (se houiver)
-#------------FIM CLASSES----------------
 
-#------------JOGADORES----------------
+
 def add_player():
     name = input("NAME: ")
     age = input("AGE: ")
@@ -160,7 +156,7 @@ def edit_player():
                     player.stats.games_played = new_games
                     
             except ValueError:
-                print("INVALID VALUE FOR STATS. USE INTEGER NUMBERS.")
+                print("INVALID VALUE FOR STATS.")
 
             print("PLAYER UPDATED SUCCESSFULLY!")
             return
@@ -180,9 +176,7 @@ def remove_player():
             return
     print("PLAYER NOT FOUND!")
 
-#-----------FIM JOGADORES---------------------------
 
-#-----------EVENTOS---------------------------
 def schedule_match():
     date = input("ENTER MATCH DATE: ")
     time = input("ENTER MATCH TIME: ")
@@ -293,9 +287,8 @@ def register_result():
                 print("NO CHANGES MADE.")
             return
     print("MATCH NOT FOUND.")
-#-----------FIM EVENTOS---------------------------
 
-#-----------PERFORMANCE E SAÚDE---------------------------
+
 def performance_tracking():
     if not players:
         print("NO PLAYERS REGISTERED.")
@@ -331,7 +324,6 @@ def list_injuried_players():
     for player in injuried_players:
         print(f"{player.name}")
         print("-"*30)
-#-----------FIM PERFORMANCE E SAÚDE---------------------------
 
 def manage_player_recruitment():
     print("\nRECRUITS MANAGEMENT")
@@ -468,8 +460,9 @@ def update_health():
 def list_injuried_players():
     print("\n| INJURIED PLAYERS LIST |")
     print("-"*30)
-    for player in injuried_players:
-        print(f"{player.name}")
+    for player in players:
+        if player.health != 'healthy':
+            print(f" #{player.id} - {player.name} ({player.health})")
         print("-"*30)
 
 def health_monitoring():
@@ -579,8 +572,8 @@ def media_and_social():
 
 def main():
     while True:
-        print("\n===== SPORTS TEAM MANAGEMENT APP =====")
-        print(" SELECT DESIRED OPTION:")
+        print("\n-----SPORTS TEAM MANAGEMENT APP-----")
+        print(" SELECT AN OPTION:")
         print("1. MANAGE TEAM AND PLAYERS")
         print("2. MANAGE MATCHES AND TRAININGS")
         print("3. MANAGE EQUIPMENT")
@@ -595,7 +588,7 @@ def main():
         elif option == "2":
             schedule_event()
         elif option == "3":
-            performance_tracking()
+            manage_equipments()
         elif option == "4":
             manage_equipments()
         elif option == '5':
