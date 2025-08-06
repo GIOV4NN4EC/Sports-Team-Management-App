@@ -318,13 +318,6 @@ def update_health():
     if player.health.strip():
         player.heatlh = new_health_status
 
-def list_injuried_players():
-    print("\n| INJURIED PLAYERS LIST |")
-    print("-"*30)
-    for player in injuried_players:
-        print(f"{player.name}")
-        print("-"*30)
-
 def manage_player_recruitment():
     print("\nRECRUITS MANAGEMENT")
     while True:
@@ -590,10 +583,8 @@ def main():
         elif option == "3":
             manage_equipments()
         elif option == "4":
-            manage_equipments()
-        elif option == '5':
             manage_finances()
-        elif option == "6":
+        elif option == '5':
             media_and_social()
         elif option == "0":
             print("CLOSING SYSTEM.")
