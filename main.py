@@ -300,24 +300,6 @@ def performance_tracking():
         print(f"ID: {player.id} | NAME: {player.name} | GOALS PER GAME AVERAGE: {aproveitamento:.2f} |")
         print("-" * 90)
 
-def check_health():
-    health_id = input("ENTER PLAYER ID TO CHECK HEALTH STATUS: ")
-
-    for player in players:
-        if player.id == health_id:
-            print(f"PLAYER {player.name} IS {player.health}")
-
-def update_health():
-    health_id = input("ENTER PLAYER ID TO UPDATE HEALTH STATUS: ")
-
-    for player in players:
-        if player.id == health_id:
-            print(f"\nEDITING PLAYER {player.name} (ID {player.id})")
-
-            new_health_status = input(f"NEW HEALTH STATUS (OR ENTER TO KEEP '{player.health}'): ")
-    if player.health.strip():
-        player.heatlh = new_health_status
-
 def manage_player_recruitment():
     print("\nRECRUITS MANAGEMENT")
     while True:
@@ -421,35 +403,6 @@ def schedule_event():
         else:
             print("INVALID OPTION.")
 
-def performance_tracking():
-    if not players:
-        print("NO PLAYERS REGISTERED.")
-        return
-
-    print("\nPLAYERS PERFORMANCE REPORT:")
-    for player in players:
-        aproveitamento = float(player.stats.score/player.stats.games_played)
-        print(f"ID: {player.id} | NAME: {player.name} | GOALS PER GAME AVERAGE: {aproveitamento:.2f} |")
-        print("-" * 90)
-
-def check_health():
-    health_id = input("ENTER PLAYER ID TO CHECK HEALTH STATUS: ")
-
-    for player in players:
-        if player.id == health_id:
-            print(f"PLAYER {player.name} IS {player.health}")
-
-def update_health():
-    health_id = input("ENTER PLAYER ID TO UPDATE HEALTH STATUS: ")
-
-    for player in players:
-        if player.id == health_id:
-            print(f"\nEDITING PLAYER {player.name} (ID {player.id})")
-
-            new_health_status = input(f"NEW HEALTH STATUS (OR ENTER TO KEEP '{player.health}'): ")
-    if player.health.strip():
-        player.heatlh = new_health_status
-
 def list_injuried_players():
     print("\n| INJURIED PLAYERS LIST |")
     print("-"*30)
@@ -460,19 +413,12 @@ def list_injuried_players():
 
 def health_monitoring():
     while True:
-        print("\nHEALTH MONITORING")
-        print("1. CHECK HEALTH STATUS")
-        print("2. UPDATE HEALTH STATUS")
-        print("3. LIST INJURIED PLAYERS")
-        print("0. BACK TO MAIN MENU")
+        print("1. LIST INJURIED PLAYERS")
+        print("0. BACK")
 
         option = input("CHOOSE AN OPTION: ").strip()
 
         if option == "1":
-            check_health()
-        elif option == "2":
-            update_health()
-        elif option == "3":
             list_injuried_players()
         elif option == "0":
             break
