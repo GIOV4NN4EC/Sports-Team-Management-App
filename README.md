@@ -2,9 +2,7 @@
 Structured project implemantation of a Sports Team Management system for the Software Project subject. 
 
 ## How to execute? 
-* `git clone -project adress`
-* `cd project`
-* Run the file `python main.py`
+* Download and run the file `main.py`
 ### Implemented Features  
 1. Team Roster Management:
    - Class Player
@@ -14,7 +12,7 @@ Structured project implemantation of a Sports Team Management system for the Sof
    - `schedule_match()`, `list_matches()`, `delete_match()`, `register_result()`
 3. Performance Tracking
    - Class Stats
-   - No funcions implemented yet
+   - `performance_tracking()`
 4. Injury and Health Management:
    - Health attribute on the class player
    - List of injuried players
